@@ -1,14 +1,14 @@
 import React from 'react';
-import PizCSS from './Boba.module.css';
 import { useStateDispatch } from '../state/AppState';
 import { PizzaType } from '../utils/Types';
+import SpecialOfferCSS from './../styles/SpecialOffer.module.css';
 
-
-export type PropsType = {
+type PropsType = {
   pizza: PizzaType
 }
 
-const Pizza: React.FC<PropsType> = ({pizza}) => {
+
+const SpecialOffer: React.FC<PropsType> = ({pizza}) => {
   const dispatch = useStateDispatch();
   const onClickHandler = () => {
     dispatch({
@@ -23,17 +23,12 @@ const Pizza: React.FC<PropsType> = ({pizza}) => {
       }
     });
   };
-  return (
-    <li className={PizCSS.wrapper}>
-      <h2>{pizza.name}</h2>
-      <p>{pizza.description}</p>
-      <p>{pizza.price}</p>
-      <button type={'button'} onClick={onClickHandler}>Add to Cart</button>
-    </li>
-
-
-  );
+  return <div className={SpecialOfferCSS.container}>
+    <h2>{pizza.name}</h2>
+    <p>{pizza.description}</p>
+    <p>{pizza.price}</p>
+    <button type={'button'} onClick={onClickHandler}>Add to Cart</button>
+  </div>;
 };
 
-
-export default Pizza;
+export default SpecialOffer;
