@@ -1,6 +1,6 @@
 import React from 'react';
 import PizCSS from './Boba.module.css';
-import { useSetState } from '../state/AppState';
+import { useStateDispatch } from '../state/AppState';
 
 type PizzaType = {
   id: number
@@ -8,35 +8,26 @@ type PizzaType = {
   description: string
   price: number,
 
+
 }
 type PropsType = {
   pizza: PizzaType
 }
 
 const Pizza: React.FC<PropsType> = ({pizza}) => {
-  const setState = useSetState();
+  const dispatch = useStateDispatch();
   const onClickHandler = () => {
-    setState(state => {
-      const itemExists = state.cart.items.find(item => item.id === pizza.id);
-      return {
-        ...state,
-        cart: {
-          ...state.cart,
-          items: itemExists ? state.cart.items.map(item => {
-              if (item.id === pizza.id) {
-                return {...item, quantity: item.quantity + 1};
-              }
-              return item;
-            })
-            : [...state.cart.items, {
-              price: pizza.price,
-              id: pizza.id,
-              description: pizza.description,
-              name: pizza.name,
-              quantity: 1
-            }]
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: {
+        item: {
+          id: pizza.id,
+          description: pizza.description,
+          name: pizza.name,
+          price: pizza.price,
+
         }
-      };
+      }
     });
   };
   return (
