@@ -22,7 +22,6 @@ const Pizza: React.FC<PropsType> = ({pizza}) => {
       payload: {
         item: {
           id: pizza.id,
-          description: pizza.description,
           name: pizza.name,
           price: pizza.price,
 
