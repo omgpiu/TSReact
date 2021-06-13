@@ -1,7 +1,7 @@
 import React from 'react';
 import PizCSS from './Boba.module.css';
 import { PizzaType } from '../utils/Types';
-import withAddToCart, { AddToCartProps } from '../utils/HOC/withAddToCart';
+import { useAddToCart } from '../utils/HOC/withAddToCart';
 
 
 export type PropsType = {
@@ -9,10 +9,10 @@ export type PropsType = {
 
 }
 
-const Pizza: React.FC<PropsType & AddToCartProps> = ({pizza, addToCart}) => {
-  const onClickHandler = () => {
-    addToCart({id: pizza.id, name: pizza.name, price: pizza.price});
-  };
+const Pizza: React.FC<PropsType> = ({pizza}) => {
+  const addToCart = useAddToCart();
+  const onClickHandler = () => addToCart({id: pizza.id, name: pizza.name, price: pizza.price});
+
   return (
     <li className={PizCSS.wrapper}>
       <h2>{pizza.name}</h2>
@@ -26,4 +26,4 @@ const Pizza: React.FC<PropsType & AddToCartProps> = ({pizza, addToCart}) => {
 };
 
 
-export default withAddToCart(Pizza);
+export default Pizza;
