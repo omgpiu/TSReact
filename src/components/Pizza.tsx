@@ -1,27 +1,17 @@
 import React from 'react';
 import PizCSS from './Boba.module.css';
-import { useStateDispatch } from '../state/AppState';
 import { PizzaType } from '../utils/Types';
+import withAddToCart, { AddToCartProps } from '../utils/HOC/withAddToCart';
 
 
 export type PropsType = {
   pizza: PizzaType
+
 }
 
-const Pizza: React.FC<PropsType> = ({pizza}) => {
-  const dispatch = useStateDispatch();
+const Pizza: React.FC<PropsType & AddToCartProps> = ({pizza, addToCart}) => {
   const onClickHandler = () => {
-    dispatch({
-      type: 'ADD_TO_CART',
-      payload: {
-        item: {
-          id: pizza.id,
-          name: pizza.name,
-          price: pizza.price,
-
-        }
-      }
-    });
+    addToCart({id: pizza.id, name: pizza.name, price: pizza.price});
   };
   return (
     <li className={PizCSS.wrapper}>
@@ -36,4 +26,4 @@ const Pizza: React.FC<PropsType> = ({pizza}) => {
 };
 
 
-export default Pizza;
+export default withAddToCart(Pizza);
